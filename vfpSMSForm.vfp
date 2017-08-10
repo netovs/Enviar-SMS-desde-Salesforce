@@ -1,0 +1,35 @@
+<apex:page standardController="Contact" extensions="smsAppController" tabStyle="Contact">
+
+  <style>
+      .startStyle
+      {
+        position: absolute;
+        top: 50%;
+        padding: 20px;
+        left: 50%;
+        background: #51a284;
+        border-radius: 5px;
+        color: white;
+      }
+  </style>
+  <apex:form >
+      <apex:actionStatus id="wait" startText="Enviando mensaje..." startStyleClass="startStyle">
+      </apex:actionStatus>
+
+      <apex:sectionHeader title="Enviar SMS a {!Contact.Name}"/>
+      <apex:sectionHeader title="Enviar SMS a {!Contact.MobilePhone}"/>
+      <apex:pageBlock title="Escribir mensaje" id="msgBlock">
+          <apex:pageBlockSection columns="1">
+              <apex:inputTextarea rows="10" cols="50" label="Message" value="{!message}"/>
+              <apex:outputText >
+                  
+              </apex:outputText>
+              <apex:outputText rendered="{!showStatus}">
+                  <span style="color:#51a284">{!statusMessage}</span></apex:outputText>
+          </apex:pageBlockSection>
+          <apex:pageBlockButtons >
+              <apex:commandButton action="{!sendMessage}" value="Enviar" status="wait" rerender="msgBlock"/>
+          </apex:pageBlockButtons>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

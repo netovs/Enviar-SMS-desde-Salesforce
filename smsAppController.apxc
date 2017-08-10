@@ -1,0 +1,67 @@
+public class smsAppController
+{
+    
+
+    public String message {get;set;}
+    public Contact thisContact {get;set;}
+    public Boolean showStatus {get;set;}
+    public String statusMessage {get;set;}
+    public String url {get; set;}
+
+    public String mobilPhone {get; set;}
+    public String s2 {get; set;}
+    public String s3 {get; set;}
+    public String s4 {get; set;}
+
+    public smsAppController(ApexPages.StandardController controller)
+    {
+        controller.addFields(new List<String>{'Phone'});
+        this.thisContact = (Contact)controller.getRecord();
+        showStatus = false;
+        message='Mensaje de prueba para '+thisContact.Name +',\n';
+       
+
+
+        
+        	
+        
+    }
+
+    public void sendMessage(){
+        if(message == null || message == ''){
+            statusMessage = 'Please enter some message';
+            showStatus = true;
+        }
+        else{
+            Http http = new Http();
+            HttpRequest req = new HttpRequest();
+            HttpResponse res;
+            
+            /* ESTO REEMPLAZA EL FORMATO (ABC) WXYZ-1234 POR ABCWXYZ1234 
+			String mobilPhoneC = this.thisContact.MobilePhone;
+            String target = ' ';
+            String reemplaza = '';
+            String s2 = mobilPhoneC.replace(target, reemplaza); 
+            mobilPhoneC = thisContact.MobilePhone;
+            target = ') ';
+            reemplaza = '';
+			s2 = mobilPhoneC.replace(target, reemplaza);         
+        	String otro = '(';
+        	s3 = s2.replace(otro, reemplaza);
+        	String fnl = '-';
+        	s4 = s3.replace(fnl, reemplaza);
+            
+            
+
+            req.setMethod('GET');
+            req.setEndpoint('https://URLSMSGATEWAY?usuario=USUARIO&password=ELPASSWORD&celular='+s4+'&mensaje='+EncodingUtil.urlEncode(message,'UTF-8'));
+
+            res = http.send(req);
+            message ='';
+            statusMessage = 'Mensaje eviado';
+            showStatus = true;
+            System.debug('\n\n---------- Response:' + res.getBody() + '\n\n');
+        }
+    }
+
+}
