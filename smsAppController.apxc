@@ -18,18 +18,12 @@ public class smsAppController
         controller.addFields(new List<String>{'Phone'});
         this.thisContact = (Contact)controller.getRecord();
         showStatus = false;
-        message='Mensaje de prueba para '+thisContact.Name +',\n';
-       
-
-
-        
-        	
-        
+        message='Mensaje de prueba para '+thisContact.Name +',\n';        
     }
 
     public void sendMessage(){
         if(message == null || message == ''){
-            statusMessage = 'Please enter some message';
+            statusMessage = 'El mensaje es obligatorio';
             showStatus = true;
         }
         else{
@@ -38,18 +32,18 @@ public class smsAppController
             HttpResponse res;
             
             /* ESTO REEMPLAZA EL FORMATO (ABC) WXYZ-1234 POR ABCWXYZ1234 
-			String mobilPhoneC = this.thisContact.MobilePhone;
+            String mobilPhoneC = this.thisContact.MobilePhone;
             String target = ' ';
             String reemplaza = '';
             String s2 = mobilPhoneC.replace(target, reemplaza); 
             mobilPhoneC = thisContact.MobilePhone;
             target = ') ';
             reemplaza = '';
-			s2 = mobilPhoneC.replace(target, reemplaza);         
-        	String otro = '(';
-        	s3 = s2.replace(otro, reemplaza);
-        	String fnl = '-';
-        	s4 = s3.replace(fnl, reemplaza);
+            s2 = mobilPhoneC.replace(target, reemplaza);         
+            String otro = '(';
+            s3 = s2.replace(otro, reemplaza);
+            String fnl = '-';
+            s4 = s3.replace(fnl, reemplaza);
             
             
 
